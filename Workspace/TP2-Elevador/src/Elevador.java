@@ -2,23 +2,37 @@ import java.util.ArrayList;
 
 public class Elevador implements Runnable{
 	private Estado estado;
+	private ArrayList<Passageiro> passageiros;
+	private int andar;
 	
-	private ArrayList<Pedido> passageiros;
+	public Elevador() {
+		estado = Estado.parado;
+	}
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		while(!passageiros.isEmpty()) {
+			
+		}
 	}
-	public synchronized void novoPassageiro(Pedido passageiro) {
+	public synchronized void nextPedido(Passageiro passageiro) {
 		passageiros.add(passageiro);
 	}
 
-	public ArrayList<Pedido> getPassageiros() {
+	public ArrayList<Passageiro> getPassageiros() {
 		return passageiros;
 	}
-	public void setPassageiros(ArrayList<Pedido> passageiros) {
+	public void setPassageiros(ArrayList<Passageiro> passageiros) {
 		this.passageiros = passageiros;
+	}
+
+	
+	public int getAndar() {
+		return andar;
+	}
+
+	public void setAndar(int andar) {
+		this.andar = andar;
 	}
 	
 }
