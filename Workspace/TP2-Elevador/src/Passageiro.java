@@ -8,6 +8,7 @@ public class Passageiro {
 	private boolean subir;
 	private boolean available;
 	private boolean atendido;
+	public int horarioEntrada, horarioSaida, duracao;
 	
 
 	public Passageiro(int origem, int destino, int intervalo) {
