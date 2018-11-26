@@ -6,19 +6,28 @@ public class Passageiro {
 	private int destino;
 	private int intervalo;
 	private boolean subir;
+	private boolean available;
+	private boolean atendido;
 	
+
 	public Passageiro(int origem, int destino, int intervalo) {
 		setOrigem(origem);
 		setDestino(destino);
 		setSubir();
 		setIntervalo(intervalo);
+		this.available=false;
+		this.setAtendido(false);
 	}
 	public Passageiro(int id, int origem, int destino, int intervalo) {
+		setID(id);
 		setOrigem(origem);
 		setDestino(destino);
 		setSubir();
 		setIntervalo(intervalo);
+		this.available=false;
+		this.setAtendido(false);
 	}
+
 	
 	public int getOrigem() {
 		return origem;
@@ -52,12 +61,27 @@ public class Passageiro {
 		return subir;
 	}
 	public void setSubir() {
-		if(this.origem<this.destino)
-			subir = true;
-		else
-			subir = false;
+		subir = origem<destino;
 	}
 	
+	public boolean isAvailable(long localTime) {
+		return getIntervalo()<localTime;
+	}
+	public void setAvailable(long localTime) {
+		this.available = getIntervalo()<localTime;
+	}
+
+	public boolean isAtendido() {
+		return atendido;
+	}
+	public void setAtendido(boolean atendido) {
+		this.atendido = atendido;
+	}
+	
+	public Passageiro clone() {
+		return new Passageiro(this.ID,this.origem,this.destino,this.intervalo);
+		
+	}
 	public int compare(Passageiro p1) {
 		if(p1.getIntervalo()<this.getIntervalo())
 			return -1;
