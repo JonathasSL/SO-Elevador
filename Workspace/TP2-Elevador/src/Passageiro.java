@@ -17,7 +17,7 @@ public class Passageiro {
 		setSubir();
 		setIntervalo(intervalo);
 		this.available=false;
-		this.setAtendido(false);
+		setAtendido(false);
 	}
 	public Passageiro(int id, int origem, int destino, int intervalo) {
 		setID(id);
@@ -26,7 +26,7 @@ public class Passageiro {
 		setSubir();
 		setIntervalo(intervalo);
 		this.available=false;
-		this.setAtendido(false);
+		setAtendido(false);
 	}
 
 	
