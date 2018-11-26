@@ -7,30 +7,22 @@ import java.util.StringTokenizer;
 
 public class Main {
 	private static final String NOME_ARQUIVO = "entrada.txt";
-	public static ArrayList<Passageiro> demanda;
-	public static ArrayList<Passageiro> atendidos;
 	public static long initialTime,horario;
-
-
+	
 
 	public static void main(String[] args) throws InterruptedException {
-		demanda = retornaArquivo(NOME_ARQUIVO);
-		Elevador[] e = new Elevador[3];
-		for(int i=0; i<3 ;i++) {
-			e[i] = new Elevador("Elevador "+i,getFirst());
-		}
+		Distribuidora d = new Distribuidora(retornaArquivo(NOME_ARQUIVO));
+
+		Elevador e1 = new Elevador("Elevador 1",d);
+		Elevador e2 = new Elevador("Elevador 2",d);
+		Elevador e3 = new Elevador("Elevador 3",d);
+		
 		
 	}
 
-	public static synchronized Passageiro getFirst() {
-//		boolean atendido = true;
-		for(int i=0; i<demanda.size() /*&& atendido*/;i++) {
-			if(!demanda.get(i).isAtendido()) {
-				return demanda.get(i);
-			}
-		}
-		return null;
-	}
+	
+
+	
 
 
 	public static synchronized Passageiro availableOnFloor(int floor, long time) {
@@ -70,7 +62,7 @@ public class Main {
 		}
 		return ordenada;
 	}
-
+	
 	public static ArrayList<Passageiro> retornaArquivo(String fileName){
 		try {
 			//Abrindo leitura do arquivo texto
@@ -103,5 +95,4 @@ public class Main {
 			return null;
 		}
 	}
-
 }
