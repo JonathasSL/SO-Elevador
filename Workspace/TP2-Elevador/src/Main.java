@@ -13,30 +13,25 @@ public class Main {
 
 
 
-	public static void main(String[] args) {
-//		try {
-			demanda = retornaArquivo(NOME_ARQUIVO);
-//			demanda = ordena(demanda);
-			
-			while(!demanda.isEmpty()) {
-				demanda.remove(0);
-				if(!demanda.isEmpty())
-					demanda.remove(0);
-				if(!demanda.isEmpty())
-					demanda.remove(0);
-				
-			}
-			
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		for(int i=0; i<demanda.size() ;i++)
-//			System.out.println("ID: " + demanda.get(i).getID() + "\tchegada: " + demanda.get(i).getIntervalo());
+	public static void main(String[] args) throws InterruptedException {
+		demanda = retornaArquivo(NOME_ARQUIVO);
+		Elevador[] e = new Elevador[3];
+		for(int i=0; i<3 ;i++) {
+			e[i] = new Elevador("Elevador "+i,getFirst());
+		}
+		
 	}
+
 	public static synchronized Passageiro getFirst() {
-		return demanda.remove(0);
+//		boolean atendido = true;
+		for(int i=0; i<demanda.size() /*&& atendido*/;i++) {
+			if(!demanda.get(i).isAtendido()) {
+				return demanda.get(i);
+			}
+		}
+		return null;
 	}
-	
+
 
 	public static synchronized Passageiro availableOnFloor(int floor, long time) {
 		Passageiro temp = null;
@@ -70,7 +65,7 @@ public class Main {
 				}
 			}
 			System.out.println("ordenada "+ordenada.size()+" \tp:"+p.size()+" \t="+(ordenada.size()+p.size())+" \tindex:"+index+" \tID: "+p.get(index).getIntervalo());
-			
+
 			ordenada.add(p.remove(index));
 		}
 		return ordenada;
