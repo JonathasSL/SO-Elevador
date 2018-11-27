@@ -5,6 +5,7 @@ public class Elevador extends Thread implements Runnable{
 	private ArrayList<Passageiro> passageiros;
 	private int andar;
 	public Distribuidora distribuidora;
+	private static final long MOVIMENTO_ELEVADOR = 10;
 
 	public Elevador(String nome, Distribuidora d) {
 		this.distribuidora = d;
@@ -16,15 +17,45 @@ public class Elevador extends Thread implements Runnable{
 
 	@Override
 	public void run() {
-			do{
-				Passageiro p = distribuidora.getNext();
-//				System.out.println(Thread.currentThread().getName()+" "+passageiros.size()+" \tfinished: "+Main.finished());
+		Passageiro p;
+		while(!distribuidora.finished()){
+			try {
+				p = distribuidora.getNext();
+				Thread.sleep(p.getIntervalo());
+				System.out.println(p.getID());
+				
+				if(p.getOrigem()>andar) {
+					estado = Estado.subindo;
+					Thread.sleep((p.getOrigem()-andar)*MOVIMENTO_ELEVADOR);
+					andar = p.getOrigem();
+				}else if(andar>p.getOrigem()) {
+					estado = Estado.descendo;
+					Thread.sleep((andar-p.getOrigem())*MOVIMENTO_ELEVADOR);
+					p.getOrigem();
+				}
+				
+				if(p.getDestino()>andar) {
+					estado = Estado.subindo;
+					Thread.sleep((p.getDestino()-andar)*MOVIMENTO_ELEVADOR);
+					andar = p.getDestino();
+				}else if(andar>p.getDestino()) {
+					estado = Estado.descendo;
+					Thread.sleep((andar-p.getDestino())*MOVIMENTO_ELEVADOR);
+					p.getDestino();
+				}
+				
+				estado = Estado.parado;
+
+
 				if(p!=null)
 					passageiros.add(p);
 				else
 					Thread.currentThread().interrupt();
-			}while(!distribuidora.finished());
-			System.out.println(Thread.currentThread().getName()+" "+passageiros.size());
+			} catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(Thread.currentThread().getName()+" "+passageiros.size());
 	}
 
 	public void goToFloor(int here, int goTo) {
