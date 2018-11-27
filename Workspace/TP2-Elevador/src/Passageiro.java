@@ -54,7 +54,7 @@ public class Passageiro {
 	public int getID() {
 		return ID;
 	}
-	public void setID(int iD) {
+	private void setID(int iD) {
 		ID = iD;
 	}
 	

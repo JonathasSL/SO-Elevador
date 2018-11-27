@@ -27,18 +27,18 @@ public class Main {
 
 	public static synchronized Passageiro availableOnFloor(int floor, long time) {
 		Passageiro temp = null;
-		int index = 0;
-		boolean available = false;
-
-		for(int i=0; i<demanda.size() && !available ;i++) {
-			if(demanda.get(i).getOrigem() == floor) {
-				available = demanda.get(i).isAvailable(time);
-				if(available) {
-					temp = demanda.get(i);
-					demanda.get(i).setAtendido(true);
-				}
-			}
-		}
+//		int index = 0;
+//		boolean available = false;
+//
+//		for(int i=0; i<demanda.size() && !available ;i++) {
+//			if(demanda.get(i).getOrigem() == floor) {
+//				available = demanda.get(i).isAvailable(time);
+//				if(available) {
+//					temp = demanda.get(i);
+//					demanda.get(i).setAtendido(true);
+//				}
+//			}
+//		}
 		return temp;
 	}
 
